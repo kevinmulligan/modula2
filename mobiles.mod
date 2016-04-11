@@ -10,6 +10,38 @@ TYPE	MobilePointer = POINTER TO Mobile;
 		rightMobile, leftMobile : MobilePointer;
 		END;
 
+(*Return true if the whole mobile is balanced*)
+PROCEDURE IsBalanced(	m : Mobile;
+			result : BOOLEAN); (* Return value *)
+BEGIN
+	(*TODO *)
+	
+END IsBalanced;
+
+(*Return the total weight of a mobile*)
+PROCEDURE Weight(	m : Mobile;
+			result : INTEGER); (* Return value *)
+BEGIN
+	(*TODO *)
+	
+END Weight;
+
+(*Return the total height of a mobile*)
+PROCEDURE Height(	m : Mobile;
+			result : BOOLEAN); (* Return value *)
+BEGIN
+	(*TODO *)
+	
+END Height;
+
+(*Return the max width of a mobile*)
+PROCEDURE Width(	m : Mobile;
+			result : BOOLEAN); (* Return value *)
+BEGIN
+	(*TODO *)
+	
+END Width;
+
 BEGIN (* MAIN *)
 	WriteString('HELLO');
 	WriteLn;
