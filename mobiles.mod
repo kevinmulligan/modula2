@@ -87,11 +87,30 @@ END Height;
 (*Return the max width of a mobile*)
 PROCEDURE Width(	m : Mobile;
 			VAR result : INTEGER); (* Return value *)
+VAR	leftWidth : INTEGER;
+	rightWidth : INTEGER;
+	left : INTEGER;
+	right : INTEGER;
 BEGIN
-	(*TODO *)
+	IF m.leftArm = 0 THEN
+		(* Ball *)
+		result := m.weight;
+	ELSE
+		(* Rod *)
+		Width(m.leftMobile^, leftWidth);
+		Width(m.rightMobile^, rightWidth);
+		left := (leftWidth / 2) + m.leftArm;
+		right := (rightWidth / 2) + m.rightArm;
+		IF left > right THEN
+			result := left * 2;
+		ELSE
+			result := right * 2;
+		END;
+	END;
 	
 END Width;
 
+(* Write TRUE or FALSE *)
 PROCEDURE WriteBool(	b : BOOLEAN);
 BEGIN
 	IF b THEN
@@ -152,7 +171,7 @@ BEGIN (* MAIN *)
 	R2^.leftMobile := B1;
 	R2^.rightMobile := B2;
 	
-	R3^.leftArm := 40;
+	R3^.leftArm := 6;
 	R3^.rightArm := 10;
 	R3^.height := 30;
 	R3^.weight := 0;
@@ -172,15 +191,15 @@ BEGIN (* MAIN *)
 	WriteLn;
 	
 	WriteString('Weight should be 10: ');
-	WriteInt(weight,0);
+	WriteInt(weight,1);
 	WriteLn;
 	
 	WriteString('Height should be 30: ');
-	WriteInt(height,0);
+	WriteInt(height,1);
 	WriteLn;
 	
 	WriteString('Width should be 10: ');
-	WriteInt(width,0);
+	WriteInt(width,1);
 	WriteLn;
 	
 	(* Test unbalanced mobile *)
@@ -196,15 +215,15 @@ BEGIN (* MAIN *)
 	WriteLn;
 	
 	WriteString('Weight should be 30: ');
-	WriteInt(weight,0);
+	WriteInt(weight,1);
 	WriteLn;
 	
 	WriteString('Height should be 60: ');
-	WriteInt(height,0);
+	WriteInt(height,1);
 	WriteLn;
 	
 	WriteString('Width should be 120: ');
-	WriteInt(width,0);
+	WriteInt(width,1);
 	WriteLn;
 	
 	(* Test simple balanced mobile *)
@@ -220,15 +239,15 @@ BEGIN (* MAIN *)
 	WriteLn;
 	
 	WriteString('Weight should be 30: ');
-	WriteInt(weight,0);
+	WriteInt(weight,1);
 	WriteLn;
 	
 	WriteString('Height should be 60: ');
-	WriteInt(height,0);
+	WriteInt(height,1);
 	WriteLn;
 	
 	WriteString('Width should be 50: ');
-	WriteInt(width,0);
+	WriteInt(width,1);
 	WriteLn;
 	
 	(* Test "complex" balanced mobile *)
@@ -244,15 +263,15 @@ BEGIN (* MAIN *)
 	WriteLn;
 	
 	WriteString('Weight should be 80: ');
-	WriteInt(weight,0);
+	WriteInt(weight,1);
 	WriteLn;
 	
 	WriteString('Height should be 100: ');
-	WriteInt(height,0);
+	WriteInt(height,1);
 	WriteLn;
 	
-	WriteString('Width should be 130: ');
-	WriteInt(width,0);
+	WriteString('Width should be 70: ');
+	WriteInt(width,1);
 	WriteLn;
 	
 	(* Free mobiles *)
