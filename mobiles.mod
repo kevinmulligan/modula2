@@ -10,20 +10,6 @@ TYPE	MobilePointer = POINTER TO Mobile;
 		rightMobile, leftMobile : MobilePointer;
 		END;
 
-(*Return true if the whole mobile is balanced*)
-PROCEDURE IsBalanced(	m : Mobile;
-			VAR result : BOOLEAN); (* Return value *)
-BEGIN
-	IF m.leftArm = 0 THEN
-		(* Ball *)
-		result := TRUE;
-	ELSE
-		(* Rod *)
-		
-	END;
-	
-END IsBalanced;
-
 (*Return the total weight of a mobile*)
 PROCEDURE Weight(	m : Mobile;
 			VAR result : INTEGER); (* Return value *)
@@ -41,6 +27,40 @@ BEGIN
 	END;
 	
 END Weight;
+
+(*Return true if the whole mobile is balanced*)
+PROCEDURE IsBalanced(	m : Mobile;
+			VAR result : BOOLEAN); (* Return value *)
+VAR	leftBalanced : BOOLEAN;
+	rightBalanced : BOOLEAN;
+	left : INTEGER;
+	right : INTEGER;
+	leftWeight : INTEGER;
+	rightWeight : INTEGER;
+BEGIN
+	IF m.leftArm = 0 THEN
+		(* Ball *)
+		result := TRUE;
+	ELSE
+		(* Rod *)
+		IsBalanced(m.leftMobile^, leftBalanced);
+		IsBalanced(m.rightMobile^, rightBalanced);
+		IF leftBalanced AND rightBalanced THEN
+			Weight(m.leftMobile^, leftWeight);
+			Weight(m.rightMobile^, rightWeight);
+			left := leftWeight * m.leftArm;
+			right := rightWeight * m.rightArm;
+			IF left = right THEN
+				result := TRUE;
+			ELSE
+				result := FALSE;
+			END;
+		ELSE
+			result := FALSE;
+		END;
+	END;
+	
+END IsBalanced;
 
 (*Return the total height of a mobile*)
 PROCEDURE Height(	m : Mobile;
